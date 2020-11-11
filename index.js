@@ -1,18 +1,28 @@
 const express = require('express')
-const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
-const db = require('./config/db')
+const mongoose = require('mongoose')
 const app = express()
 const port = 3000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}));
 
+async function run() {
+    try {
+        await mongoose.connect('mongodb+srv://injector:injector@cluster0.2kcbd.mongodb.net/sirius_backend_base?retryWrites=true&w=majority', {
+            useNewUrlParser: true,
+            useFindAndModify: false
+        })
 
-MongoClient.connect(db.url, (err, database) => {
-    if (err) return console.log(err)
-    require('./app/routes')(app, database.db('sirius_backend_base'))
-    app.listen(port, () => {
-        console.log(`Listening at http://localhost:${port}`)
-    })
-})
+        require('./app/routes')(app)
+
+        app.listen(port, () => {
+            console.log(`Running server at ${port}`)
+        });
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+run()
