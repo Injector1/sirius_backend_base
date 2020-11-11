@@ -9,7 +9,6 @@
 `touch db.js`
 
 ###### db.js:
-
 `module.exports = {url: 'your mongodb url'}` 
 
 `npm run dev`
