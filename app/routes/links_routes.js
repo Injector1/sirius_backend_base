@@ -41,7 +41,7 @@ module.exports = function (app) {
         res
             .status(301)
             .header(
-                'Location', link.urlToShorten
+                'location', link.urlToShorten
             )
             .send({
                 redirectTo: link.urlToShorten
