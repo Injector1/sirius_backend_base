@@ -34,8 +34,7 @@ module.exports = function (app) {
             return res
                 .status(404)
                 .send({
-                    error: true,
-                    status: 'Not Found'
+                    status: "Link does not exist"
                 })
         }
         res
