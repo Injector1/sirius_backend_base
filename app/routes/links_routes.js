@@ -13,7 +13,7 @@ module.exports = function (app) {
             })
         }
         const link = Link({
-            shortenedUrl: `https://${req.headers.host}/${nanoid.nanoid(8)}`,
+            shortenedUrl: `http://${req.headers.host}/${nanoid.nanoid(8)}`,
             urlToShorten: req.body.urlToShorten
         })
         await link.save((err) => {
@@ -27,7 +27,7 @@ module.exports = function (app) {
 
     app.get("/:url", async (req, res) => {
         // Получаем полную ссылку по укороченной
-        const requestedUrl = `https://${req.headers.host}/${req.params.url}`
+        const requestedUrl = `http://${req.headers.host}/${req.params.url}`
         const link = await Link.findOne({shortenedUrl: requestedUrl})
 
         if (!link) {
@@ -51,7 +51,7 @@ module.exports = function (app) {
 
     app.get("/:url/views", async (req, res) => {
         // Получить количество переходов по ссылке
-        const requestedUrl = `https://${req.headers.host}/${req.params.url}`
+        const requestedUrl = `http://${req.headers.host}/${req.params.url}`
         const link = await Link.findOne({shortenedUrl: requestedUrl})
 
         if (!link) {
